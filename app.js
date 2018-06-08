@@ -4,6 +4,5 @@ var clickCount = 0;
 
 cat.addEventListener('click', function(){
   clickCount++;
-  console.log(clickCount);
-  console.log(count);
+  count.innerHTML = clickCount;
 }, false);
