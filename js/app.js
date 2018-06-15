@@ -13,7 +13,7 @@ for (var i = 0; i < li.length; i++) {
 }
 
 (function init() {
-	image[0].src = li[0].innerHTML + '.jpg';
+	image[0].src = 'img/' + li[0].innerHTML + '.jpg';
 	image[0].class = li[0].innerHTML;
 	count.innerHTML = counts[0];
 }());
@@ -21,7 +21,7 @@ for (var i = 0; i < li.length; i++) {
 for (var i = 0; i < li.length; i++) {
 	li[i].addEventListener('click', (function (iCopy) {
 		return function () {
-			image[0].src = li[iCopy].innerHTML + '.jpg';
+			image[0].src = 'img/' + li[iCopy].innerHTML + '.jpg';
 			image[0].class = li[iCopy].innerHTML;
 			count.innerHTML = counts[iCopy];
 		}
