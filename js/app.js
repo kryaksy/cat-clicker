@@ -37,8 +37,8 @@
 		]
 	}
 
-	/* Larry the OCTOPUS to manage MODEL data and run VIEWs 
-	 * It controls model, viewList, viewCont, createDom variables
+	/* 
+	 * OCTOPUS to manage MODEL data and run VIEWs 
 	 */
 	var octopus = {
 		
@@ -78,7 +78,8 @@
 		}
 	}
 
-	/* VIEW LIST
+	/* 
+	 * VIEW LIST
 	 */
 	var viewList = {
 
@@ -125,7 +126,8 @@
 		}
 	}
 
-	/* VIEW CONTAINER
+	/* 
+	 * VIEW CONTAINER
 	 */
 	var viewCont = {
 		
@@ -158,7 +160,8 @@
 		}
 	}
 
-	/* CREATEDOM 
+	/* 
+	 * CREATEDOM 
 	 * to initialize DOM and recreate when need
 	 */
 	var createDom = {
