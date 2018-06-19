@@ -51,6 +51,7 @@
 			createDom.init();
 			viewList.init();
 			viewCont.init();
+			viewAdmin.init();
 		},
 
 		// Selecting given cat argument
@@ -161,6 +162,34 @@
 	}
 
 	/* 
+	 * VIEW Admin 
+	 */
+	var viewAdmin = {
+		init: function () {
+			this.adminButtonElement = $('#admButton')[0];
+			this.adminElement = $('#admin')[0];
+			this.adminVisible = false;
+
+			this.render();
+		},
+
+		render: function () {
+			this.adminButtonElement.addEventListener('click', (function (elem) {
+				return function () {
+					if (this.adminVisible) {
+						elem.style.display = 'none';
+						this.adminVisible = false;
+					}else{
+						elem.style.display = 'block';						
+						this.adminVisible = true;
+					}
+				}
+			})(this.adminElement));
+		}
+	}
+
+
+	/* 
 	 * CREATEDOM 
 	 * to initialize DOM and recreate when need
 	 */
@@ -179,11 +208,24 @@
 			this.countEl = document.createElement('div');
 			this.contentEl = document.createElement('div');
 
+			// Create Admin elements
+			this.adminButtonEl = document.createElement('button');
+			this.adminEl = document.createElement('div');
+			this.titleEl = document.createElement('h2');
+			this.formEl = document.createElement('form');
+			this.nameInputEl = document.createElement('input');
+			this.urlInputEl = document.createElement('input');
+			this.countInputEl = document.createElement('input');
+			this.submitEl = document.createElement('button');
+			this.cancelEl = document.createElement('button');
+
 			// Set all attributes
 			this.setAttributes();
 		},
 
 		setAttributes: function () {
+
+			var cat = octopus.getSelected();
 
 			// Simply sets all needed attributes
 			this.listEl.setAttribute('id','list');				// #list
@@ -194,11 +236,38 @@
 			this.containerEl.setAttribute('class','flex');		// .flex
 			this.catInfoEl.setAttribute('class', 'catInfo');	// .catInfo
 
+			// Set attributes of admin elements
+			this.adminButtonEl.setAttribute('id','admButton');
+			this.adminEl.setAttribute('id', 'admin');
+			this.titleEl.setAttribute('class', 'title');
+			this.nameInputEl.setAttribute('type', 'text');
+			this.urlInputEl.setAttribute('type', 'text');
+			this.countInputEl.setAttribute('type', 'text');
+			this.submitEl.setAttribute('class', 'submit');
+			this.cancelEl.setAttribute('class', 'cancel');
+
+			// Set inner texts
+			this.adminButtonEl.innerHTML = '+'
+			this.titleEl.innerHTML = 'Admin Panel';
+			this.nameInputEl.placeholder = cat.name;
+			this.urlInputEl.placeholder = cat.url;
+			this.countInputEl.placeholder = cat.count;
+			this.submitEl.innerHTML = 'Submit';
+			this.cancelEl.innerHTML = 'Cancel';
+
 			// Placing all Elements
 			this.packElements();
 		},
 
 		packElements: function () {
+
+			// Packing Admin Elements
+			this.formEl.appendChild(this.nameInputEl);
+			this.formEl.appendChild(this.urlInputEl);
+			this.formEl.appendChild(this.countInputEl);
+			this.formEl.appendChild(this.submitEl);
+			this.formEl.appendChild(this.cancelEl);
+			this.adminEl.appendChild(this.formEl);
 
 			// Packing all elements into content element
 			this.catInfoEl.appendChild(this.catNamEl);		// CatName 		--> Cat Info
@@ -209,13 +278,14 @@
 			this.listEl.appendChild(this.ulEl);				// ul 			--> List
 			this.contentEl.appendChild(this.listEl);		// List 		--> Content
 			this.contentEl.appendChild(this.containerEl);	// Container 	--> Content
+			this.contentEl.appendChild(this.adminEl);		// Admin 	 	--> Content
+			this.contentEl.appendChild(this.adminButtonEl);	// Admin Button --> Content
 
 			// Rendering
 			this.render();
 		},
 
 		render: function () {
-
 			// Select <body> and mutate it
 			var body = $('body')[0];
 			body.innerHTML = this.contentEl.innerHTML;
